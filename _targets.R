@@ -19,6 +19,12 @@ tar_source("R")
 
 # List of targets ------
 list(
-  tar_target(song_2023, make_songs_2023_data())
+  tar_target(jazz_song_list,      make_jazz_songs_list()),
+  tar_target(song_user_2023,      make_jazzsongs_user_count_data(jazz_song_list, .what = "records_2023")),
+  tar_target(song_user_geoloc,    make_jazzsongs_user_count_data(jazz_song_list, .what = "geoloc")),
+  tar_target(edgelist_2023,       make_edgelist(song_user_2023)),
+  tar_target(edgelist_geoloc,     make_edgelist(song_user_geoloc)),
+  tar_target(edgelist_2023_csv,   write_data(edgelist_2023, "output/edgelist_2023.csv"), format = "file"),
+  tar_target(edgelist_geoloc_csv, write_data(edgelist_geoloc, "output/edgelist_geoloc.csv"), format = "file")
 )
   
